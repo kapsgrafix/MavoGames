@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MavoGames | Your demo</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2230%22 cy=%2232%22 r=%2222%22 fill=%22%23FF2D55%22/%3E%3Ccircle cx=%2272%22 cy=%2232%22 r=%2222%22 fill=%22%23FFC21A%22/%3E%3Ccircle cx=%2251%22 cy=%2270%22 r=%2222%22 fill=%22%232D6BF0%22/%3E%3C/svg%3E">
+<style>
+:root{--paper:#F5F5F2;--card:#fff;--ink:#111214;--ink-2:#45494F;--muted:#7A7F87;--line:#DEDFDB;--accent:#FF2D55;color-scheme:light;
+--display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Helvetica Neue",Arial,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0E0F11;--card:#18191C;--ink:#F2F2EE;--ink-2:#BEC2C8;--muted:#878C94;--line:#26282C;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--display);font-size:17px;line-height:1.55;letter-spacing:-.011em;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(20px,env(safe-area-inset-left))}
+header{padding:22px 0}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo svg{height:22px;width:auto;display:block;color:var(--ink)}
+.out{font:inherit;font-size:14px;color:var(--muted);background:none;border:0;cursor:pointer;text-decoration:underline}
+h1{font-weight:600;font-size:clamp(32px,5vw,56px);line-height:1.05;letter-spacing:-.035em;margin:0}
+.stop{color:var(--accent)}
+.sub{color:var(--ink-2);font-size:clamp(17px,1.5vw,20px);max-width:52ch;margin:16px 0 0}
+.gate{min-height:70vh;display:grid;place-items:center;padding:40px 0}
+.box{width:min(460px,100%);background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(24px,4vw,40px);box-shadow:0 40px 80px -50px rgba(17,18,20,.35)}
+.box h1{font-size:clamp(28px,4vw,38px)}
+.box p{color:var(--ink-2);margin:12px 0 24px}
+label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:8px}
+input{width:100%;font:inherit;font-size:17px;padding:13px 16px;border-radius:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:inherit;font-weight:600;font-size:16px;padding:14px 22px;border-radius:999px;border:0;cursor:pointer;text-decoration:none;transition:background .2s,color .2s}
+.btn.solid{background:var(--ink);color:var(--paper)} .btn.solid:hover{background:var(--accent);color:#fff}
+.btn.red{background:var(--accent);color:#fff} .btn.red:hover{background:var(--ink);color:var(--paper)}
+.btn.full{width:100%;margin-top:14px}
+.err{color:#B8143A;font-size:14px;margin:10px 0 0;min-height:1em}
+.fine{font-size:13px;color:var(--muted);margin-top:16px}
+.fine a{color:var(--ink-2)}
+main.demo{padding:24px 0 96px}
+.player{margin-top:36px;border-radius:18px;overflow:hidden;background:#111214;border:1px solid var(--line);box-shadow:0 60px 120px -60px rgba(17,18,20,.5)}
+.player video{display:block;width:100%;height:auto;aspect-ratio:8/5}
+.cap{text-align:center;color:var(--muted);font-size:15px;margin-top:12px}
+.next{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:48px}
+@media (max-width:720px){.next{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card.dark{background:#111214;color:#F5F5F2;border-color:#111214}
+.card .k{font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.02em}
+.card h2{margin:0;font-size:clamp(24px,2.4vw,30px);letter-spacing:-.025em;line-height:1.1}
+.card p{margin:0;color:var(--ink-2)} .card.dark p{color:#A5AAB2}
+.card .btn{align-self:flex-start;margin-top:auto}
+.card.dark .btn.solid{background:#F5F5F2;color:#111214} .card.dark .btn.solid:hover{background:var(--accent);color:#fff}
+[hidden]{display:none!important}
+</style></head><body>
+<header><div class="wrap"><a class="logo" href="/" aria-label="MavoGames home"><svg role="img" aria-label="MavoGames" xmlns="http://www.w3.org/2000/svg" viewBox="0 -154 1324.6 200.8"><path fill="currentColor" d="M21.81 0.0H57.0V-62.89C57.0 -74.86 64.05 -81.81 73.67 -81.81C83.18 -81.81 89.62 -75.06 89.62 -64.53V0.0H123.27V-63.61C123.27 -74.55 129.61 -81.81 139.63 -81.81C149.14 -81.81 155.89 -75.57 155.89 -64.12V0.0H191.18V-71.89C191.18 -95.93 175.94 -110.35 154.67 -110.35C139.22 -110.35 125.52 -102.68 120.0 -88.56C115.60 -102.68 103.12 -110.35 88.70 -110.35C74.69 -110.35 61.90 -103.19 55.67 -87.75V-108.0H21.81ZM239.56 1.84C254.79 1.84 264.51 -3.47 270.95 -15.13H271.36V0.0H305.73V-72.71C305.73 -96.54 288.44 -110.35 257.04 -110.35C225.75 -110.35 208.06 -96.44 206.52 -73.02H239.25C239.97 -80.38 246.00 -85.09 255.82 -85.09C265.12 -85.09 270.85 -80.69 270.85 -74.25V-73.73C270.85 -67.29 263.79 -65.76 244.47 -64.12C221.45 -62.28 202.53 -54.40 202.53 -30.17C202.53 -8.69 217.98 1.84 239.56 1.84ZM250.29 -21.17C241.70 -21.17 235.87 -25.15 235.87 -31.80C235.87 -38.86 242.62 -42.75 252.03 -44.18C260.73 -45.61 267.37 -46.94 271.16 -48.68V-38.86C271.16 -28.22 262.06 -21.17 250.29 -21.17ZM351.14 0.0H391.13L430.50 -108.0H394.09L378.75 -58.29C376.30 -49.70 373.95 -41.21 371.59 -32.72C369.24 -41.21 366.79 -49.70 364.23 -58.29L348.58 -108.0H311.76ZM489.01 2.45C522.86 2.45 545.77 -19.73 545.77 -54.0C545.77 -88.05 522.86 -110.45 489.01 -110.45C455.16 -110.45 432.14 -88.05 432.14 -54.0C432.14 -19.73 455.16 2.45 489.01 2.45ZM489.01 -25.56C476.63 -25.56 467.84 -35.69 467.84 -54.0C467.84 -72.20 476.73 -82.43 489.01 -82.43C501.28 -82.43 510.18 -72.20 510.18 -54.0C510.18 -35.69 501.28 -25.56 489.01 -25.56ZM610.00 44.18C643.75 44.18 665.02 29.25 665.02 -5.93V-108.0H630.05V-92.86H629.94C623.19 -104.21 612.66 -110.35 598.65 -110.35C571.24 -110.35 552.22 -87.23 552.22 -55.12C552.22 -23.42 570.63 -0.71 598.95 -0.71C613.07 -0.71 624.22 -6.34 629.94 -19.12H630.05V-2.45C630.05 11.86 623.09 19.22 610.00 19.22C599.88 19.22 593.02 15.13 591.18 8.38H557.53C560.81 29.14 576.76 44.18 610.00 44.18ZM608.77 -28.32C595.89 -28.32 587.91 -38.55 587.91 -55.73C587.91 -72.81 595.89 -83.04 608.77 -83.04C622.07 -83.04 631.17 -72.30 631.17 -55.73C631.17 -39.06 622.07 -28.32 608.77 -28.32ZM713.50 1.84C728.74 1.84 738.46 -3.47 744.90 -15.13H745.31V0.0H779.67V-72.71C779.67 -96.54 762.39 -110.35 730.99 -110.35C699.70 -110.35 682.00 -96.44 680.47 -73.02H713.20C713.91 -80.38 719.95 -85.09 729.77 -85.09C739.07 -85.09 744.80 -80.69 744.80 -74.25V-73.73C744.80 -67.29 737.74 -65.76 718.41 -64.12C695.40 -62.28 676.48 -54.40 676.48 -30.17C676.48 -8.69 691.92 1.84 713.50 1.84ZM724.24 -21.17C715.65 -21.17 709.82 -25.15 709.82 -31.80C709.82 -38.86 716.57 -42.75 725.98 -44.18C734.67 -45.61 741.32 -46.94 745.11 -48.68V-38.86C745.11 -28.22 736.00 -21.17 724.24 -21.17ZM795.12 0.0H830.30V-62.89C830.30 -74.86 837.36 -81.81 846.97 -81.81C856.49 -81.81 862.93 -75.06 862.93 -64.53V0.0H896.58V-63.61C896.58 -74.55 902.92 -81.81 912.94 -81.81C922.45 -81.81 929.20 -75.57 929.20 -64.12V0.0H964.49V-71.89C964.49 -95.93 949.25 -110.35 927.97 -110.35C912.53 -110.35 898.83 -102.68 893.30 -88.56C888.91 -102.68 876.43 -110.35 862.01 -110.35C848.00 -110.35 835.21 -103.19 828.97 -87.75V-108.0H795.12ZM1030.97 2.45C1058.27 2.45 1080.06 -12.78 1084.05 -34.56H1052.44C1049.89 -27.40 1042.52 -22.90 1032.19 -22.90C1018.29 -22.90 1010.10 -31.60 1009.69 -45.30H1084.86V-54.81C1084.86 -87.54 1062.47 -110.45 1030.05 -110.45C998.04 -110.45 975.33 -86.93 975.33 -54.0C975.33 -21.06 997.83 2.45 1030.97 2.45ZM1009.90 -66.37C1011.43 -77.72 1019.10 -84.47 1030.97 -84.47C1042.73 -84.47 1050.50 -77.72 1052.04 -66.37ZM1143.06 2.65C1173.33 2.65 1193.79 -12.27 1193.79 -34.46C1193.79 -50.52 1183.36 -59.82 1161.16 -63.92L1139.48 -67.90C1132.02 -69.34 1127.82 -72.30 1127.82 -76.80C1127.82 -82.12 1133.14 -86.11 1142.35 -86.11C1151.65 -86.11 1158.40 -80.48 1158.61 -72.92H1191.03C1190.41 -95.93 1171.29 -110.25 1141.12 -110.25C1111.05 -110.25 1092.74 -96.54 1092.74 -75.17C1092.74 -58.09 1104.10 -47.14 1125.37 -43.36L1144.90 -39.88C1153.49 -38.35 1157.99 -35.48 1157.99 -30.78C1157.99 -25.36 1152.27 -21.57 1142.55 -21.57C1132.22 -21.57 1125.98 -26.59 1124.96 -34.56H1090.29C1092.23 -11.55 1113.20 2.65 1143.06 2.65Z"/><circle cx="1245.3" cy="-81.0" r="21.1" fill="#FF2D55"/><circle cx="1291.5" cy="-81.0" r="21.1" fill="#FFC21A"/><circle cx="1268.4" cy="-39.0" r="21.1" fill="#2D6BF0"/></svg></a><button class="out" id="out" type="button" hidden>Sign out</button></div></header>
+
+<section class="gate wrap" id="gate">
+  <form class="box" id="login" novalidate>
+    <h1>Your demo is ready<span class="stop">.</span></h1>
+    <p>Sign in with the work email you used to book your demo.</p>
+    <label for="em">Work email</label>
+    <input id="em" type="email" autocomplete="email" placeholder="you@brand.com" required>
+    <button class="btn solid full" type="submit">Watch the demo <span aria-hidden="true">→</span></button>
+    <p class="err" id="err"></p>
+    <p class="fine">New here? <a href="/#contact">Book a demo first</a> and you'll come straight back.</p>
+  </form>
+</section>
+
+<main class="demo wrap" id="demo" hidden>
+  <h1 id="hi">Here's MavoGames Playground<span class="stop">.</span></h1>
+  <p class="sub">See how a brand turns a ready-made game into its own playable ad in minutes. Then try it yourself, or let us walk you through it.</p>
+  <div class="player"><video id="vid" src="media/playground-demo.mp4" poster="media/playground-poster.jpg" controls playsinline preload="metadata" aria-label="MavoGames Playground demo video"></video></div>
+  <p class="cap">The 1-minute walkthrough. Sound on.</p>
+  <div class="next">
+    <div class="card">
+      <span class="k">Do it yourself</span>
+      <h2>Try the Playground</h2>
+      <p>Pick a game, add your logo, colours and offer, and preview it on a phone. No code needed.</p>
+      <a class="btn solid" id="tryLink" href="#" target="_blank" rel="noopener">Open Playground <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="card dark">
+      <span class="k">With our team</span>
+      <h2>Book a guided demo</h2>
+      <p>A 20-minute call where we build a first game for your brand, live, around the metric you want to move.</p>
+      <a class="btn solid" id="bookLink" href="#" target="_blank" rel="noopener">Pick a time <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  // Links. Swap these for the final ones.
+  var PLAYGROUND_URL = "https://claude.ai/artifact/WiGFvHJRh6akhAxpGmBWuk";
+  var BOOKING_URL = "";   // paste a Google Calendar booking page link here
+
+  var KEY = "mavogames_demo_user";
+  function get(){ try { return JSON.parse(localStorage.getItem(KEY) || "null"); } catch(e){ return null; } }
+  function set(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+  function clear(){ try { localStorage.removeItem(KEY); } catch(e){} }
+  var $ = function(id){ return document.getElementById(id); };
+
+  $("tryLink").href = PLAYGROUND_URL;
+  if (BOOKING_URL) $("bookLink").href = BOOKING_URL;
+  else { $("bookLink").href = "/#contact"; $("bookLink").removeAttribute("target"); $("bookLink").innerHTML = "Request a time <span aria-hidden=\"true\">→</span>"; }
+
+  function show(user){
+    $("gate").hidden = true; $("demo").hidden = false; $("out").hidden = false;
+    if (user && user.brand) $("hi").innerHTML = "Welcome, " + user.brand.replace(/[<>&]/g,"") + "<span class=\"stop\">.</span>";
+  }
+  function gate(){ $("gate").hidden = false; $("demo").hidden = true; $("out").hidden = true; }
+
+  var u = get();
+  if (u && u.email) show(u); else gate();
+
+  $("login").addEventListener("submit", function(e){
+    e.preventDefault();
+    var em = $("em").value.trim().toLowerCase();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { $("err").textContent = "Enter a valid work email."; return; }
+    var prev = get() || {};
+    var user = { email: em, brand: prev.email === em ? prev.brand : "" };
+    set(user); $("err").textContent = ""; show(user);
+  });
+  $("out").addEventListener("click", function(){ clear(); $("vid").pause(); gate(); });
+})();
+</script>
+</body></html>
